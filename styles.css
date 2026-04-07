@@ -178,6 +178,13 @@ h3 {
   line-height: 1.6;
 }
 
+.viewer-greeting {
+  margin: 0.9rem 0 0;
+  font-family: var(--font-title);
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  color: var(--primary-deep);
+}
+
 .chip-row {
   display: flex;
   gap: 0.75rem;

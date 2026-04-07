@@ -89,6 +89,7 @@ const elements = {
   selectWomanRoleBtn: document.querySelector("#selectWomanRoleBtn"),
   selectPartnerRoleBtn: document.querySelector("#selectPartnerRoleBtn"),
   heroText: document.querySelector("#heroText"),
+  viewerGreeting: document.querySelector("#viewerGreeting"),
   viewerModeChip: document.querySelector("#viewerModeChip"),
   installAppBtn: document.querySelector("#installAppBtn"),
   installHelpText: document.querySelector("#installHelpText"),
@@ -1170,6 +1171,7 @@ function renderViewerMode() {
 
   if (role === "partner") {
     elements.viewerModeChip.textContent = "Vista pareja";
+    elements.viewerGreeting.textContent = buildViewerGreeting("partner");
     elements.dashboardKicker.textContent = "Guia del dia";
     elements.dashboardTitle.textContent = "Como esta ella hoy";
     elements.heroText.textContent =
@@ -1179,6 +1181,7 @@ function renderViewerMode() {
 
   if (role === "woman") {
     elements.viewerModeChip.textContent = "Vista mujer";
+    elements.viewerGreeting.textContent = buildViewerGreeting("woman");
     elements.dashboardKicker.textContent = "Tablero de hoy";
     elements.dashboardTitle.textContent = "Tu pulso del dia";
     elements.heroText.textContent =
@@ -1187,10 +1190,21 @@ function renderViewerMode() {
   }
 
   elements.viewerModeChip.textContent = "Elegir vista";
+  elements.viewerGreeting.textContent = "";
   elements.dashboardKicker.textContent = "Tablero de hoy";
   elements.dashboardTitle.textContent = "Tu pulso del dia";
   elements.heroText.textContent =
     "Una app pensada para que te organices mejor, entiendas como cambia tu energia segun el dia del ciclo y le des a tu pareja un briefing concreto sobre como acompanarte bien.";
+}
+
+function buildViewerGreeting(role) {
+  if (role === "partner") {
+    const partnerName = state.profile.partnerName?.trim();
+    return partnerName ? `Hola ${partnerName}` : "Hola";
+  }
+
+  const userName = state.profile.userName?.trim();
+  return userName ? `Hola ${userName}` : "Hola";
 }
 
 function renderStatus() {
