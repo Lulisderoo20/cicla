@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Calendario menstrual local e instalable para registrar ciclos, anticipar sintomas y compartir un resumen claro."
+    />
+    <meta name="application-name" content="Cicla" />
+    <meta name="theme-color" content="#d55b5b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cicla" />
+    <meta property="og:title" content="Cicla" />
+    <meta
+      property="og:description"
+      content="Calendario menstrual privado para organizar tu ciclo, registrar sintomas y compartir un resumen claro."
+    />
+    <meta property="og:image" content="assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_AR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cicla" />
+    <meta
+      name="twitter:description"
+      content="Calendario menstrual privado para organizar tu ciclo, registrar sintomas y compartir un resumen claro."
+    />
+    <meta name="twitter:image" content="assets/og-image.png" />
+    <title>Cicla</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo-mark.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+    <link rel="icon" href="assets/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="backdrop backdrop-left"></div>
+    <div class="backdrop backdrop-right"></div>
+
+    <div id="roleGate" class="role-gate hidden" aria-hidden="true">
+      <div class="role-gate-card">
+        <p class="section-kicker">Antes de entrar</p>
+        <h2>Quien esta usando Cicla ahora</h2>
+        <p class="helper">
+          Elige la vista para que la app muestre lo que necesitas: gestion
+          completa si eres vos, o acompanamiento claro si eres tu pareja.
+        </p>
+
+        <div class="role-options">
+          <button id="selectWomanRoleBtn" class="role-option" type="button">
+            <strong>Soy mujer</strong>
+            <span>Veo mi calendario, configuro fases y registro sintomas.</span>
+          </button>
+          <button id="selectPartnerRoleBtn" class="role-option" type="button">
+            <strong>Soy pareja</strong>
+            <span>Veo el briefing del dia, el calendario y como acompanarla.</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-shell">
+      <header class="hero">
+        <div class="eyebrow">Calendario menstrual local y privado</div>
+        <div class="hero-copy">
+          <div>
+            <img class="hero-lockup" src="assets/logo-lockup.svg" alt="Cicla" />
+            <p id="heroText" class="hero-text">
+              Una app pensada para que te organices mejor, entiendas como cambia
+              tu energia segun el dia del ciclo y le des a tu pareja un briefing
+              concreto sobre como acompanarte bien.
+            </p>
+          </div>
+
+          <div class="chip-row">
+            <span class="chip">Instalable</span>
+            <span class="chip">Sin servidor</span>
+            <span class="chip">Briefing diario para pareja</span>
+            <span id="viewerModeChip" class="chip chip-highlight">Elegir vista</span>
+            <button id="installAppBtn" class="button install-app-btn" type="button" hidden>
+              Descargar
+            </button>
+            <button id="changeRoleBtn" class="button button-ghost role-switch" type="button">
+              Cambiar vista
+            </button>
+          </div>
+          <p id="installHelpText" class="micro-note install-help hidden" aria-live="polite"></p>
+        </div>
+
+        <div class="hero-grid">
+          <section class="panel panel-primary">
+            <div class="panel-heading">
+              <div>
+                <p id="dashboardKicker" class="section-kicker">Tablero de hoy</p>
+                <h2 id="dashboardTitle">Tu pulso del dia</h2>
+              </div>
+              <button id="recordTodayBtn" class="button button-ghost audience-woman" type="button">
+                Me vino hoy
+              </button>
+            </div>
+
+            <div id="todayPulse" class="today-pulse" aria-live="polite"></div>
+            <div id="statusGrid" class="status-grid" aria-live="polite"></div>
+            <div id="todayGuideGrid" class="support-grid" aria-live="polite"></div>
+            <div id="statusCallout" class="callout" aria-live="polite"></div>
+          </section>
+
+          <aside class="panel panel-secondary audience-woman">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Base y recordatorio</p>
+                <h2>Dejalo listo hoy</h2>
+              </div>
+            </div>
+
+            <form id="setupForm" class="stack-form">
+              <label>
+                Tu nombre
+                <input
+                  id="userName"
+                  name="userName"
+                  type="text"
+                  placeholder="Por ejemplo, Esther"
+                />
+              </label>
+
+              <label>
+                Nombre de tu pareja
+                <input
+                  id="partnerName"
+                  name="partnerName"
+                  type="text"
+                  placeholder="Por ejemplo, Robert"
+                />
+              </label>
+
+              <div class="field-row">
+                <label>
+                  Ciclo promedio
+                  <input
+                    id="cycleLength"
+                    name="cycleLength"
+                    type="number"
+                    min="21"
+                    max="40"
+                    value="28"
+                  />
+                </label>
+
+                <label>
+                  Dias de menstruacion
+                  <input
+                    id="periodLength"
+                    name="periodLength"
+                    type="number"
+                    min="2"
+                    max="10"
+                    value="5"
+                  />
+                </label>
+              </div>
+
+              <label class="toggle">
+                <input id="unknownDateToggle" type="checkbox" />
+                <span>No recuerdo la ultima fecha exacta</span>
+              </label>
+
+              <label>
+                Inicio del ultimo periodo
+                <input id="lastPeriodStart" name="lastPeriodStart" type="date" />
+              </label>
+
+              <div class="form-divider"></div>
+
+              <p class="helper">
+                Recordatorio diario para revisar o compartir el briefing del dia.
+              </p>
+
+              <label class="toggle">
+                <input id="reminderEnabled" name="reminderEnabled" type="checkbox" />
+                <span>Recordarmelo cada dia</span>
+              </label>
+
+              <label>
+                Hora del recordatorio
+                <input id="reminderTime" name="reminderTime" type="time" value="09:00" />
+              </label>
+
+              <div class="button-row button-row-split">
+                <button class="button" type="submit">Guardar configuracion</button>
+                <button
+                  id="notificationPermissionBtn"
+                  class="button button-ghost"
+                  type="button"
+                >
+                  Activar avisos
+                </button>
+              </div>
+
+              <div id="notificationStatus" class="micro-note" aria-live="polite"></div>
+            </form>
+          </aside>
+        </div>
+      </header>
+
+      <main>
+        <section class="section two-column">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Proximos dias</p>
+                <h2>Linea del tiempo de 14 dias</h2>
+              </div>
+            </div>
+            <div id="timeline" class="timeline" aria-live="polite"></div>
+          </div>
+
+          <div class="panel panel-accent">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Modo pareja</p>
+                <h2>Briefing diario para compartir</h2>
+              </div>
+            </div>
+
+            <p class="helper">
+              Cada dia te muestra que te puede hacer bien, que conviene evitar y
+              como aprovechar tu energia segun la fase.
+            </p>
+
+            <div id="partnerBriefing" class="partner-briefing" aria-live="polite"></div>
+            <pre id="sharePreview" class="share-preview audience-woman" aria-live="polite"></pre>
+
+            <div class="button-row button-row-split audience-woman">
+              <button id="copyShareBtn" class="button" type="button">
+                Copiar briefing
+              </button>
+              <button id="nativeShareBtn" class="button button-ghost" type="button">
+                Compartir
+              </button>
+            </div>
+
+            <div class="share-sync-card audience-woman">
+              <p class="section-kicker">Compartir con tu pareja</p>
+              <h3>Link sincronizado para el</h3>
+              <p id="sharingStatusText" class="helper" aria-live="polite"></p>
+              <pre id="partnerLinkPreview" class="share-preview share-link-preview" aria-live="polite"></pre>
+              <div class="button-row button-row-split">
+                <button id="shareWithPartnerBtn" class="button" type="button">
+                  Compartir con mi pareja
+                </button>
+                <button id="copyPartnerLinkBtn" class="button button-ghost" type="button">
+                  Copiar link de pareja
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section two-column">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Calendario</p>
+                <h2>Vista mensual</h2>
+              </div>
+            </div>
+
+            <div class="calendar-toolbar">
+              <button id="prevMonthBtn" class="button button-ghost" type="button">
+                Anterior
+              </button>
+              <div id="monthLabel" class="month-label"></div>
+              <button id="nextMonthBtn" class="button button-ghost" type="button">
+                Siguiente
+              </button>
+            </div>
+
+            <div class="legend">
+              <span><i class="legend-dot menstruation"></i>Menstruacion</span>
+              <span><i class="legend-dot ovulation"></i>Ovulacion</span>
+              <span><i class="legend-dot logged"></i>Bitacora</span>
+            </div>
+
+            <div class="calendar-head">
+              <span>Lun</span>
+              <span>Mar</span>
+              <span>Mie</span>
+              <span>Jue</span>
+              <span>Vie</span>
+              <span>Sab</span>
+              <span>Dom</span>
+            </div>
+
+            <div id="calendarGrid" class="calendar-grid" aria-live="polite"></div>
+          </div>
+
+          <div class="panel audience-woman">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Mapa personal</p>
+                <h2>Cuidado y energia por fase</h2>
+              </div>
+            </div>
+
+            <p class="helper">
+              Deja por escrito que te hace bien, que evitar y como te conviene
+              usar tu energia en cada etapa. Podes completarlo ahora o el dia
+              que te venga.
+            </p>
+
+            <form id="phaseGuideForm" class="stack-form">
+              <div id="phaseGuideGrid" class="phase-guide-grid" aria-live="polite"></div>
+              <button class="button" type="submit">Guardar mapa personal</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="section two-column audience-woman">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Registro</p>
+                <h2>Anotar menstruacion</h2>
+              </div>
+            </div>
+
+            <form id="periodForm" class="stack-form">
+              <div class="field-row">
+                <label>
+                  Inicio
+                  <input id="periodStart" name="periodStart" type="date" required />
+                </label>
+
+                <label>
+                  Fin
+                  <input id="periodEnd" name="periodEnd" type="date" required />
+                </label>
+              </div>
+
+              <label>
+                Nota opcional
+                <input
+                  id="periodNotes"
+                  name="periodNotes"
+                  type="text"
+                  placeholder="flujo leve, mucho dolor, etc."
+                />
+              </label>
+
+              <button class="button" type="submit">Guardar periodo</button>
+            </form>
+
+            <div id="historyList" class="history-list" aria-live="polite"></div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">Bitacora diaria</p>
+                <h2>Lo que sentiste hoy</h2>
+              </div>
+            </div>
+
+            <form id="dayLogForm" class="stack-form">
+              <label>
+                Fecha
+                <input id="logDate" name="logDate" type="date" required />
+              </label>
+
+              <div class="field-row">
+                <label>
+                  Estado de animo
+                  <select id="logMood" name="logMood">
+                    <option value="">Elegir</option>
+                    <option value="tranquila">Tranquila</option>
+                    <option value="sensible">Sensible</option>
+                    <option value="irritable">Irritable</option>
+                    <option value="social">Social</option>
+                    <option value="agotada">Agotada</option>
+                  </select>
+                </label>
+
+                <label>
+                  Energia
+                  <select id="logEnergy" name="logEnergy">
+                    <option value="">Elegir</option>
+                    <option value="alta">Alta</option>
+                    <option value="media">Media</option>
+                    <option value="baja">Baja</option>
+                  </select>
+                </label>
+              </div>
+
+              <label>
+                Sintomas del dia
+                <input
+                  id="logSymptoms"
+                  name="logSymptoms"
+                  type="text"
+                  placeholder="dolor lumbar, antojos, hinchazon"
+                />
+              </label>
+
+              <label>
+                Nota breve
+                <textarea
+                  id="logNote"
+                  name="logNote"
+                  rows="3"
+                  placeholder="Algo que quieras recordar para el proximo ciclo"
+                ></textarea>
+              </label>
+
+              <button class="button" type="submit">Guardar bitacora</button>
+            </form>
+
+            <div id="dailyLogCard" class="daily-log-card" aria-live="polite"></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        Tus datos quedan guardados en este dispositivo y, si activas Supabase,
+        tambien puedes sincronizarlos con tu pareja sin perder tu base local.
+      </footer>
+    </div>
+
+    <script src="sync-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

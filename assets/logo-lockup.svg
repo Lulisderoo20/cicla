@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 260" role="img" aria-labelledby="title desc">
+  <title id="title">Cicla lockup</title>
+  <desc id="desc">Cicla logo mark with wordmark and subtitle.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d55b5b" />
+      <stop offset="55%" stop-color="#e28369" />
+      <stop offset="100%" stop-color="#ffb36a" />
+    </linearGradient>
+    <linearGradient id="moon" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#fffaf3" />
+      <stop offset="100%" stop-color="#ffe7d0" />
+    </linearGradient>
+  </defs>
+
+  <rect x="10" y="10" width="220" height="220" rx="56" fill="url(#bg)" />
+  <circle cx="120" cy="116" r="56" fill="#fff8f0" opacity="0.22" />
+  <circle cx="122" cy="112" r="58" fill="url(#moon)" />
+  <circle cx="148" cy="102" r="48" fill="#cf5657" opacity="0.22" />
+  <path
+    d="M76 150c14 26 33 44 55 44 31 0 57-32 57-72 0-12-2-22-6-31-7 25-30 43-57 43-18 0-35-9-47-23-5 8-8 18-8 29 0 4 0 7 1 10 2 0 3 0 5 0Z"
+    fill="#fff4ea"
+  />
+  <circle cx="78" cy="80" r="7" fill="#fffaf4" />
+  <circle cx="176" cy="66" r="5" fill="#fffaf4" opacity="0.9" />
+  <circle cx="190" cy="150" r="9" fill="#fffaf4" opacity="0.82" />
+
+  <text
+    x="278"
+    y="122"
+    fill="#3b2022"
+    font-family="Aptos Display, Segoe UI, Trebuchet MS, sans-serif"
+    font-size="104"
+    font-weight="700"
+    letter-spacing="-4"
+  >
+    Cicla
+  </text>
+  <text
+    x="282"
+    y="172"
+    fill="#755657"
+    font-family="Aptos, Segoe UI, Candara, sans-serif"
+    font-size="28"
+    letter-spacing="0.5"
+  >
+    Calendario menstrual privado y compartible
+  </text>
+</svg>

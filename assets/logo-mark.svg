@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Cicla logo</title>
+  <desc id="desc">Rounded warm icon with a crescent moon and cycle dots.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d55b5b" />
+      <stop offset="55%" stop-color="#e28369" />
+      <stop offset="100%" stop-color="#ffb36a" />
+    </linearGradient>
+    <radialGradient id="glow" cx="32%" cy="24%" r="72%">
+      <stop offset="0%" stop-color="#fff8f0" stop-opacity="0.78" />
+      <stop offset="100%" stop-color="#fff8f0" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="moon" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#fffaf3" />
+      <stop offset="100%" stop-color="#ffe7d0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="124" fill="url(#bg)" />
+  <circle cx="168" cy="132" r="158" fill="url(#glow)" />
+  <circle cx="258" cy="240" r="136" fill="url(#moon)" />
+  <circle cx="320" cy="220" r="116" fill="#cf5657" opacity="0.2" />
+  <path
+    d="M150 330c30 50 72 86 118 86 68 0 124-70 124-157 0-23-4-45-12-66-16 56-66 96-124 96-40 0-76-19-102-50-10 17-16 37-16 60 0 11 2 21 5 31 2 0 4 0 7 0Z"
+    fill="#fff4ea"
+    opacity="0.94"
+  />
+
+  <circle cx="152" cy="162" r="16" fill="#fffaf4" />
+  <circle cx="368" cy="132" r="10" fill="#fffaf4" opacity="0.92" />
+  <circle cx="396" cy="324" r="20" fill="#fffaf4" opacity="0.82" />
+  <circle cx="124" cy="290" r="8" fill="#fffaf4" opacity="0.82" />
+
+  <path
+    d="M110 390c36 18 83 28 144 28 78 0 128-18 172-44"
+    fill="none"
+    stroke="#fff5ed"
+    stroke-linecap="round"
+    stroke-width="10"
+    opacity="0.5"
+  />
+</svg>
