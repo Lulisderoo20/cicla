@@ -454,9 +454,13 @@ function showManualInstallHelp() {
 
 async function handleShareWithPartner() {
   if (!isSyncConfigured()) {
-    window.alert(
-      "Para que tu pareja vea tu calendario con tus cambios en tiempo real, primero hay que completar sync-config.js con una URL y anon key de Supabase.",
-    );
+    const link = buildPartnerShareLink();
+    const text = `${buildShareSummary()}\n\nAbre la app en vista pareja:\n${link}`;
+    const copied = await copyTextToClipboard(text);
+    elements.shareWithPartnerBtn.textContent = copied ? "Listo para enviar" : "Link listo";
+    window.setTimeout(() => {
+      elements.shareWithPartnerBtn.textContent = "Compartir con mi pareja";
+    }, 1800);
     return;
   }
 
@@ -775,7 +779,7 @@ function getSyncConfig() {
 }
 
 function buildPartnerShareLink() {
-  if (!state.sync.enabled || !state.sync.shareId || !state.sync.partnerToken || !isHostedOnline()) {
+  if (!isHostedOnline()) {
     return "";
   }
 
@@ -783,8 +787,12 @@ function buildPartnerShareLink() {
   url.search = "";
   url.hash = "";
   url.searchParams.set("role", "partner");
-  url.searchParams.set("share", state.sync.shareId);
-  url.searchParams.set("partner", state.sync.partnerToken);
+
+  if (state.sync.enabled && state.sync.shareId && state.sync.partnerToken) {
+    url.searchParams.set("share", state.sync.shareId);
+    url.searchParams.set("partner", state.sync.partnerToken);
+  }
+
   return url.toString();
 }
 
@@ -898,6 +906,7 @@ function applyViewerMode() {
     state.profile.viewerRole = "partner";
   }
 
+  document.body.classList.add("simple-ui");
   const role = state.profile.viewerRole;
   document.body.classList.toggle("role-woman", role === "woman");
   document.body.classList.toggle("role-partner", role === "partner");
@@ -1175,7 +1184,7 @@ function renderViewerMode() {
     elements.dashboardKicker.textContent = "Guia del dia";
     elements.dashboardTitle.textContent = "Como esta ella hoy";
     elements.heroText.textContent =
-      "Una vista pensada para tu pareja: que te ayuda hoy, que conviene evitar y como acompanarte segun tu fase.";
+      "Lo justo para que sepa como acompanarte hoy, sin confundirse.";
     return;
   }
 
@@ -1185,7 +1194,7 @@ function renderViewerMode() {
     elements.dashboardKicker.textContent = "Tablero de hoy";
     elements.dashboardTitle.textContent = "Tu pulso del dia";
     elements.heroText.textContent =
-      "Una app pensada para que te organices mejor, entiendas como cambia tu energia segun el dia del ciclo y le des a tu pareja un briefing concreto sobre como acompanarte bien.";
+      "Lo esencial para organizarte, registrar tu ciclo y compartirle a tu pareja lo importante de hoy.";
     return;
   }
 
@@ -1194,7 +1203,7 @@ function renderViewerMode() {
   elements.dashboardKicker.textContent = "Tablero de hoy";
   elements.dashboardTitle.textContent = "Tu pulso del dia";
   elements.heroText.textContent =
-    "Una app pensada para que te organices mejor, entiendas como cambia tu energia segun el dia del ciclo y le des a tu pareja un briefing concreto sobre como acompanarte bien.";
+    "Lo esencial para organizarte, registrar tu ciclo y compartirle a tu pareja lo importante de hoy.";
 }
 
 function buildViewerGreeting(role) {
@@ -1538,11 +1547,11 @@ function renderSharingStatus() {
 
   if (!isConfigured) {
     elements.sharingStatusText.textContent =
-      "Para que tu pareja reciba tus cambios automaticamente hace falta conectar la app a Supabase una sola vez.";
+      "Por ahora puedes compartirle el link en vista pareja y el briefing del momento, sin vueltas.";
     elements.partnerLinkPreview.textContent =
-      "Completa sync-config.js con la URL y la anon key de tu proyecto para activar el link compartido.";
+      link || "Abre la version publicada para generar el link de pareja.";
     elements.shareWithPartnerBtn.disabled = false;
-    elements.copyPartnerLinkBtn.disabled = true;
+    elements.copyPartnerLinkBtn.disabled = !link;
     return;
   }
 

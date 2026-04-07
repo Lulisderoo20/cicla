@@ -76,9 +76,9 @@
           </div>
 
           <div class="chip-row">
-            <span class="chip">Instalable</span>
-            <span class="chip">Sin servidor</span>
-            <span class="chip">Briefing diario para pareja</span>
+            <span class="chip simple-hide">Instalable</span>
+            <span class="chip simple-hide">Sin servidor</span>
+            <span class="chip simple-hide">Briefing diario para pareja</span>
             <span id="viewerModeChip" class="chip chip-highlight">Elegir vista</span>
             <button id="installAppBtn" class="button install-app-btn" type="button" hidden>
               Descargar
@@ -208,7 +208,7 @@
 
       <main>
         <section class="section two-column">
-          <div class="panel">
+          <div class="panel simple-hide">
             <div class="panel-heading">
               <div>
                 <p class="section-kicker">Proximos dias</p>
@@ -232,7 +232,7 @@
             </p>
 
             <div id="partnerBriefing" class="partner-briefing" aria-live="polite"></div>
-            <pre id="sharePreview" class="share-preview audience-woman" aria-live="polite"></pre>
+            <pre id="sharePreview" class="share-preview audience-woman simple-hide" aria-live="polite"></pre>
 
             <div class="button-row button-row-split audience-woman">
               <button id="copyShareBtn" class="button" type="button">
@@ -245,7 +245,7 @@
 
             <div class="share-sync-card audience-woman">
               <p class="section-kicker">Compartir con tu pareja</p>
-              <h3>Link sincronizado para el</h3>
+              <h3>Link para tu pareja</h3>
               <p id="sharingStatusText" class="helper" aria-live="polite"></p>
               <pre id="partnerLinkPreview" class="share-preview share-link-preview" aria-live="polite"></pre>
               <div class="button-row button-row-split">
@@ -261,7 +261,7 @@
         </section>
 
         <section class="section two-column">
-          <div class="panel">
+          <div class="panel simple-hide">
             <div class="panel-heading">
               <div>
                 <p class="section-kicker">Calendario</p>
@@ -424,8 +424,8 @@
       </main>
 
       <footer class="footer">
-        Tus datos quedan guardados en este dispositivo y, si activas Supabase,
-        tambien puedes sincronizarlos con tu pareja sin perder tu base local.
+        Tus datos quedan guardados en este dispositivo y la app ya puede
+        compartirle a tu pareja una vista simple con lo importante.
       </footer>
     </div>
 

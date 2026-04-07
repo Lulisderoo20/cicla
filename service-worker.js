@@ -1,4 +1,4 @@
-const CACHE_NAME = "cicla-cache-v9";
+const CACHE_NAME = "cicla-cache-v10";
 const APP_ASSETS = [
   "./",
   "./index.html",
